@@ -21,7 +21,12 @@ const calculateMovingAverage = (prices, period) => {
 app.get("/api/trading-signal", async (req, res) => {
   try {
     const response = await axios.get(
-      "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=20"
+      "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=20",
+      {
+        headers: {
+          "X-MBX-APIKEY": process.env.BINANCE_API_KEY, // Include API Key
+        },
+      }
     );
     const closingPrices = response.data.map((candle) => candle[4]); // Extract closing prices
 
